@@ -2,18 +2,22 @@ import pyodbc
 import pandas as pd
 import numpy as np
 
-conn = pyodbc.connect('Driver={SQL Server};'
-                      'Server=blvmes22;'
+conn1 = pyodbc.connect('Driver={SQL Server};'
+                      'Server=brgmes02;'
                       'Database=iqs;'
                       'Trusted_Connection=yes;')
 
-df = pd.read_sql_query('SELECT * FROM iqs.container', conn)
+df1 = pd.read_sql_query('SELECT * FROM iqs.container', conn1)
 
-print(df)
-print(type(df))
+conn2 = pyodbc.connect('Driver={SQL Server};'
+                      'Server=blvmes02;'
+                      'Database=iqs;'
+                      'Trusted_Connection=yes;')
 
-#cursor = conn.cursor()
-#cursor.execute('SELECT * FROM iqs.container')
+df2 = pd.read_sql_query('SELECT * FROM iqs.container', conn2)
 
-#for i in cursor:
-#    print(i)
+df1=df1.append(df2)
+
+print(df1)
+print(type(df1))
+
